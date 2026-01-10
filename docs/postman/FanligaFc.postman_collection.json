@@ -1,0 +1,1148 @@
+{
+  "info": {
+    "_postman_id": "a9b6f5f4-0b55-4a2a-9b9b-7aa8b8b9d1a2",
+    "name": "FanligaFC Backend",
+    "description": "Collection for FanligaFC backend APIs (health, user profile, create user, user players, catalog management, and player management).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ping",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ping"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_name\": \"testuser\",\n  \"photo\": \"\",\n  \"chant\": \"\",\n  \"bio\": \"\",\n  \"banner\": \"\",\n  \"best_player_id\": 1,\n  \"best_club_id\": 1,\n  \"best_manager_id\": 1,\n  \"best_country_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "user-id",
+                "value": "{{userId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/user/profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch User Players",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "user-id",
+                "value": "{{userId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/user/players",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "players"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add User Players",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "user-id", "value": "{{userId}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"player_ids\": [1,2]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/players",
+              "host": ["{{baseUrl}}"],
+              "path": ["user","players"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Follow User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "user-id", "value": "{{userId}}"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"following_id\": 2\n}"},
+            "url": {"raw": "{{baseUrl}}/user/follow", "host": ["{{baseUrl}}"], "path": ["user","follow"]}
+          },
+          "response": []
+        },
+        {
+          "name": "Unfollow User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "user-id", "value": "{{userId}}"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"following_id\": 2\n}"},
+            "url": {"raw": "{{baseUrl}}/user/unfollow", "host": ["{{baseUrl}}"], "path": ["user","unfollow"]}
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Catalog",
+      "item": [
+        {
+          "name": "Positions",
+          "item": [
+            {
+              "name": "List Positions",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/positions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "positions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Position",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider_id\": 1,\n  \"position_name\": \"Forward\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/positions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "positions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Position",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/positions/{{positionId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "positions",
+                    "{{positionId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Position",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider_id\": 1,\n  \"position_name\": \"Striker\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/positions/{{positionId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "positions",
+                    "{{positionId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Position",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/positions/{{positionId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "positions",
+                    "{{positionId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Clubs",
+          "item": [
+            {
+              "name": "List Clubs",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/clubs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "clubs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Club",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"club_name\": \"Barcelona FC\",\n  \"club_image\": \"https://example.com/barcelona-logo.png\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/clubs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "clubs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Club",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/clubs/{{clubId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "clubs",
+                    "{{clubId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Club",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"club_name\": \"FC Barcelona\",\n  \"club_image\": \"https://example.com/barcelona-updated-logo.png\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/clubs/{{clubId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "clubs",
+                    "{{clubId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Club",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/clubs/{{clubId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "clubs",
+                    "{{clubId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Managers",
+          "item": [
+            {
+              "name": "List Managers",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/managers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "managers"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Manager",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"manager_name\": \"Pep Guardiola\",\n  \"manager_image\": \"https://example.com/pep-guardiola.png\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/managers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "managers"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Manager",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/managers/{{managerId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "managers",
+                    "{{managerId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Manager",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"manager_name\": \"Josep Guardiola\",\n  \"manager_image\": \"https://example.com/pep-guardiola-updated.png\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/managers/{{managerId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "managers",
+                    "{{managerId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Manager",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/managers/{{managerId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "managers",
+                    "{{managerId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Countries",
+          "item": [
+            {
+              "name": "List Countries",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/countries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "countries"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Country",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country_name\": \"Spain\",\n  \"country_image\": \"https://example.com/spain-flag.png\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/countries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "countries"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Country",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/countries/{{countryId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "countries",
+                    "{{countryId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Country",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country_name\": \"Kingdom of Spain\",\n  \"country_image\": \"https://example.com/spain-flag-updated.png\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/countries/{{countryId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "countries",
+                    "{{countryId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Country",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/countries/{{countryId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "countries",
+                    "{{countryId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Players",
+          "item": [
+            {
+              "name": "List Players",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/players",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "players"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Player",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Lionel Messi\",\n  \"position_id\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/players",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "players"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Player",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/players/{{playerId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "players",
+                    "{{playerId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Player",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Lionel Andrés Messi\",\n  \"position_id\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/players/{{playerId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "players",
+                    "{{playerId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Player",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/players/{{playerId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "players",
+                    "{{playerId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Entities",
+          "item": [
+            {
+              "name": "List Entities",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/entities",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "entities"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Entity",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_name\": \"Best Goal Scorer\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/entities",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "entities"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Entity",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/entities/{{entityId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "entities",
+                    "{{entityId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Entity",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_name\": \"Top Goal Scorer\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/entities/{{entityId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "entities",
+                    "{{entityId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Entity",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/entities/{{entityId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "entities",
+                    "{{entityId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Ranked Entities",
+          "item": [
+            {
+              "name": "List Ranked Entities",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/ranked-entities",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "ranked-entities"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Ranked Entity",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_id\": 1,\n  \"player_id\": 1,\n  \"club_id\": 1,\n  \"manager_id\": 1,\n  \"country_id\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/ranked-entities",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "ranked-entities"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Ranked Entity",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/ranked-entities/{{rankedEntityId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "ranked-entities",
+                    "{{rankedEntityId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Ranked Entity",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_id\": 1,\n  \"player_id\": 2,\n  \"club_id\": 1,\n  \"manager_id\": 1,\n  \"country_id\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/ranked-entities/{{rankedEntityId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "ranked-entities",
+                    "{{rankedEntityId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Ranked Entity",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/ranked-entities/{{rankedEntityId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "ranked-entities",
+                    "{{rankedEntityId}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Player Management",
+      "item": [
+        {
+          "name": "Create Player",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cristiano Ronaldo\",\n  \"position_id\": 1,\n  \"provider_player_id\": 123\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/player",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Player by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/player/{{playerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "{{playerId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Player",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cristiano Ronaldo dos Santos\",\n  \"position_id\": 1,\n  \"provider_player_id\": 123\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/player/{{playerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "{{playerId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Player",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/player/{{playerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "{{playerId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Players by Position ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/player/position/{{positionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "position",
+                "{{positionId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch User Team",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "user-id",
+                "value": "{{userId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/user-team",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "user-team"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "userId",
+      "value": "1"
+    },
+    {
+      "key": "positionId",
+      "value": "1"
+    },
+    {
+      "key": "clubId",
+      "value": "1"
+    },
+    {
+      "key": "managerId",
+      "value": "1"
+    },
+    {
+      "key": "countryId",
+      "value": "1"
+    },
+    {
+      "key": "playerId",
+      "value": "1"
+    },
+    {
+      "key": "entityId",
+      "value": "1"
+    },
+    {
+      "key": "rankedEntityId",
+      "value": "1"
+    }
+  ]
+}
+

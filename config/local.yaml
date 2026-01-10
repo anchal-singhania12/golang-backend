@@ -1,0 +1,18 @@
+env: "dev"
+
+http_server:
+  address: "3000"
+
+database:
+  driver: "postgres"
+  host: "127.0.0.1"
+  port: "5432"
+  username: "admin"
+  password: "fanligaadmin"
+  database: "fanligadb"
+  url: "postgres://admin:fanligaadmin@localhost:5432/fanligadb?sslmode=disable"
+
+access_token:
+  public_key: "sample_public_key"
+  private_key: "sample_private_key"
+  encryption_key: "sample_key"

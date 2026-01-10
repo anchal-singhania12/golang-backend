@@ -1,0 +1,9 @@
+env: "dev"
+
+http_server:
+  address: "8082"
+
+access_token_keys:
+  public_key: "sample_key"
+  private_key: "sample_key"
+  encryption_key: "sample_key"
