@@ -16,17 +16,24 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ec2-golang
+          chmod 600 ~/.ssh/ec2-golang
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy files
+      - name: Build Go binary
         run: |
-          rsync -avz golang-app \
-            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/opt/golang-app/
+          GOOS=linux GOARCH=amd64 go build -o golang-app ./cmd/main.go
 
-      - name: Restart service
+      - name: Copy binary to EC2
         run: |
-          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
-          "sudo systemctl restart golang-app"
+          rsync -avz -e "ssh -i ~/.ssh/ec2-golang" \
+          golang-app \
+          ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/opt/golang-app/
+
+      - name: Restart app on EC2
+        run: |
+          ssh -i ~/.ssh/ec2-golang \
+          ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            sudo systemctl restart golang-app
+          EOF
 
