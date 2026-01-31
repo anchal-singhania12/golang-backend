@@ -9,22 +9,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout code
       - uses: actions/checkout@v4
 
+      # 2️⃣ Setup Go
       - uses: actions/setup-go@v5
         with:
           go-version: '1.22'
 
+      # 3️⃣ Build Linux binary
       - name: Build binary
         run: |
-          GOOS=linux GOARCH=amd64 go build -o golang-app ./cmd
+          GOOS=linux GOARCH=amd64 go build -o golang-app ./cmd/main.go
 
+      # 4️⃣ Deploy to EC2
       - name: Deploy to EC2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-          rsync golang-app ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/opt/golang-app/golang-app
-          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "sudo systemctl restart golang-app"
+          ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
+          rsync -avz -e "ssh -i ~/.ssh/id_ed25519" golang-app $EC2_USER@$EC2_HOST:/opt/golang-app/golang-app
+          ssh -i ~/.ssh/id_ed25519 $EC2_USER@$EC2_HOST "sudo systemctl restart golang-app"
 
